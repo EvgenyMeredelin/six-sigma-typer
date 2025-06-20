@@ -9,6 +9,17 @@ app = typer.Typer()
 url = "https://six-sigma.containerapps.ru/data"
 
 
+def prevent_fails_greater_than_tests(
+    value: int, context: typer.Context
+) -> int:
+    if value > context.params["tests"]:
+        raise typer.BadParameter(
+            "Number of fails can't be greater than "
+            "the total number of tests"
+        )
+    return value
+
+
 @app.command()
 def main(
     tests: Annotated[
@@ -27,6 +38,7 @@ def main(
             "--fails", "-f",
             help="Number of tests qualified as failed",
             min=1,
+            callback=prevent_fails_greater_than_tests,
             show_default=False,
             rich_help_panel="Process parameters"
         )
