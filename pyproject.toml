@@ -1,0 +1,18 @@
+[project]
+name = "six-sigma-typer"
+version = "0.1.0"
+description = "Evaluate a single process with the \"6 Sigma\" approach"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "black>=25.1.0",
+    "requests>=2.32.4",
+    "typer>=0.16.0",
+]
+
+[project.scripts]
+six-sigma = "six_sigma_typer.main:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
