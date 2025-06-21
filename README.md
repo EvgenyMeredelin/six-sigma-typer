@@ -1,12 +1,16 @@
 ## __six-sigma-typer__
 
-This is a single process data-only toy CLI interface for the [six-sigma](https://github.com/EvgenyMeredelin/six-sigma) app.
+This is a single process data-only toy CLI for the [six-sigma](https://github.com/EvgenyMeredelin/six-sigma) app.
 
 ***
 ### __Installation__
 
 ```
-$ uv pip install six_sigma_typer-0.1.0-py3-none-any.whl
+$ pip install --user https://github.com/EvgenyMeredelin/six-sigma-typer/raw/refs/heads/main/dist/six_sigma_typer-0.1.0-py3-none-any.whl
+```
+
+```
+$ uv pip install https://github.com/EvgenyMeredelin/six-sigma-typer/raw/refs/heads/main/dist/six_sigma_typer-0.1.0-py3-none-any.whl
 ```
 
 ***
