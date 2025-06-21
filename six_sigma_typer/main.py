@@ -1,7 +1,7 @@
 from typing import Annotated
 
-import black
 import requests
+import rich
 import typer
 
 
@@ -10,14 +10,14 @@ url = "https://six-sigma.containerapps.ru/data"
 
 
 def prevent_fails_greater_than_tests(
-    value: int, context: typer.Context
+    fails: int, context: typer.Context
 ) -> int:
-    if value > context.params["tests"]:
+    if fails > context.params["tests"]:
         raise typer.BadParameter(
             "Number of fails can't be greater than "
             "the total number of tests"
         )
-    return value
+    return fails
 
 
 @app.command()
@@ -29,6 +29,7 @@ def main(
             help="Total number of tests",
             min=1,
             show_default=False,
+            show_envvar=False,
             rich_help_panel="Process parameters"
         )
     ],
@@ -37,9 +38,10 @@ def main(
         typer.Option(
             "--fails", "-f",
             help="Number of tests qualified as failed",
-            min=1,
+            min=0,
             callback=prevent_fails_greater_than_tests,
             show_default=False,
+            show_envvar=False,
             rich_help_panel="Process parameters"
         )
     ],
@@ -52,7 +54,9 @@ def main(
         )
     ] = None
 ) -> None:
-    """Evaluate a single process with the \"6 Sigma\" approach. """
+    """
+    Evaluate a single process with the \"6 Sigma\" approach.
+    Calls https://six-sigma.containerapps.ru/ under the hood.
+    """
     params = {"tests": tests, "fails": fails, "name": name}
-    process = requests.get(url, params=params).json()[0]
-    print(black.format_str(repr(process), mode=black.Mode()))
+    rich.print(requests.get(url, params=params).json()[0])
