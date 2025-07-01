@@ -5,7 +5,11 @@ import rich
 import typer
 
 
-app = typer.Typer()
+app = typer.Typer(
+    help="Evaluate a single process with the \"6 Sigma\" approach",
+    rich_markup_mode="rich",
+    epilog="Evgeny Meredelin, eimeredelin@sberbank.ru"
+)
 url = "https://six-sigma.containerapps.ru/data"
 
 
